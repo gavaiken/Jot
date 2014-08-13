@@ -18,20 +18,14 @@
   self.textField = [[UITextField alloc] initWithFrame:CGRectMake(10.0f, 30.0f, 300.0f, 30.0f)];
   self.textField.borderStyle = UITextBorderStyleRoundedRect;
   self.textField.delegate = self;
+  [self.textField addTarget:self
+                     action:@selector(updateSuggestions)
+           forControlEvents:UIControlEventEditingChanged];
   [self.view addSubview:self.textField];
-
-  // Add button
-  UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-  button.frame = CGRectMake(110.0f, CGRectGetMaxY(self.textField.frame) + 10, 100.0f, 30.0f);
-  [button addTarget:self
-             action:@selector(updateSuggestions)
-       forControlEvents:UIControlEventTouchUpInside];
-  [button setTitle:@"Search" forState:UIControlStateNormal];
-  [self.view addSubview:button];
 
   // Add text view
   self.textView = [[UITextView alloc] init];
-  CGFloat yOffset = CGRectGetMaxY(button.frame);
+  CGFloat yOffset = CGRectGetMaxY(self.textField.frame);
   CGFloat padding = 10.0f;
   self.textView.frame = CGRectMake(padding,
                               yOffset + padding,
