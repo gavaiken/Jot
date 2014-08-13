@@ -11,6 +11,8 @@ static NSString * const IMDBSuggestURLFormat = @"http://sg.media-imdb.com/sugges
     return;
   }
 
+  // Query parameters must be lowercase.
+  text = [[text lowercaseString] stringByReplacingOccurrencesOfString:@" " withString:@"_"];
   NSString *URLString =
       [NSString stringWithFormat:IMDBSuggestURLFormat, [text substringToIndex:1], text];
   NSURL *URL = [NSURL URLWithString:URLString];
