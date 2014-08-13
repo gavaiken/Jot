@@ -1,12 +1,5 @@
-//
-//  AppDelegate.m
-//  Jot
-//
-//  Created by Gavin Aiken on 8/12/14.
-//  Copyright (c) 2014 Gavin Aiken. All rights reserved.
-//
-
 #import "AppDelegate.h"
+#import "MainViewController.h"
 
 @interface AppDelegate ()
 
@@ -16,7 +9,13 @@
             
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-  // Override point for customization after application launch.
+  self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+  self.window.backgroundColor = [UIColor whiteColor];
+
+  MainViewController *viewController = [[MainViewController alloc] init];
+  self.window.rootViewController = viewController;
+
+  [self.window makeKeyAndVisible];
   return YES;
 }
 

@@ -9,10 +9,10 @@
 /* Begin PBXBuildFile section */
 		AF4250A6199AF9DD004094EC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4250A5199AF9DD004094EC /* main.m */; };
 		AF4250A9199AF9DD004094EC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4250A8199AF9DD004094EC /* AppDelegate.m */; };
-		AF4250AC199AF9DD004094EC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4250AB199AF9DD004094EC /* ViewController.m */; };
-		AF4250AF199AF9DD004094EC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF4250AD199AF9DD004094EC /* Main.storyboard */; };
 		AF4250B1199AF9DD004094EC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF4250B0199AF9DD004094EC /* Images.xcassets */; };
 		AF4250BD199AF9DD004094EC /* JotTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4250BC199AF9DD004094EC /* JotTests.m */; };
+		AFD6C33A199B06C8002685F6 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AFD6C339199B06C8002685F6 /* MainViewController.m */; };
+		AFD6C33D199B0A57002685F6 /* JOTMovieRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = AFD6C33C199B0A57002685F6 /* JOTMovieRequest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,13 +31,14 @@
 		AF4250A5199AF9DD004094EC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		AF4250A7199AF9DD004094EC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		AF4250A8199AF9DD004094EC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		AF4250AA199AF9DD004094EC /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		AF4250AB199AF9DD004094EC /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		AF4250AE199AF9DD004094EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AF4250B0199AF9DD004094EC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		AF4250B6199AF9DD004094EC /* JotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF4250BB199AF9DD004094EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AF4250BC199AF9DD004094EC /* JotTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JotTests.m; sourceTree = "<group>"; };
+		AFD6C338199B06C8002685F6 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		AFD6C339199B06C8002685F6 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		AFD6C33B199B0A57002685F6 /* JOTMovieRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JOTMovieRequest.h; sourceTree = "<group>"; };
+		AFD6C33C199B0A57002685F6 /* JOTMovieRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JOTMovieRequest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,11 +82,12 @@
 			children = (
 				AF4250A7199AF9DD004094EC /* AppDelegate.h */,
 				AF4250A8199AF9DD004094EC /* AppDelegate.m */,
-				AF4250AA199AF9DD004094EC /* ViewController.h */,
-				AF4250AB199AF9DD004094EC /* ViewController.m */,
-				AF4250AD199AF9DD004094EC /* Main.storyboard */,
 				AF4250B0199AF9DD004094EC /* Images.xcassets */,
 				AF4250A3199AF9DD004094EC /* Supporting Files */,
+				AFD6C338199B06C8002685F6 /* MainViewController.h */,
+				AFD6C339199B06C8002685F6 /* MainViewController.m */,
+				AFD6C33B199B0A57002685F6 /* JOTMovieRequest.h */,
+				AFD6C33C199B0A57002685F6 /* JOTMovieRequest.m */,
 			);
 			path = Jot;
 			sourceTree = "<group>";
@@ -196,7 +198,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AF4250AF199AF9DD004094EC /* Main.storyboard in Resources */,
 				AF4250B1199AF9DD004094EC /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -215,8 +216,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AF4250AC199AF9DD004094EC /* ViewController.m in Sources */,
 				AF4250A9199AF9DD004094EC /* AppDelegate.m in Sources */,
+				AFD6C33A199B06C8002685F6 /* MainViewController.m in Sources */,
+				AFD6C33D199B0A57002685F6 /* JOTMovieRequest.m in Sources */,
 				AF4250A6199AF9DD004094EC /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -238,17 +240,6 @@
 			targetProxy = AF4250B7199AF9DD004094EC /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		AF4250AD199AF9DD004094EC /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				AF4250AE199AF9DD004094EC /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		AF4250BE199AF9DD004094EC /* Debug */ = {
@@ -404,6 +395,7 @@
 				AF4250C2199AF9DD004094EC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AF4250C3199AF9DD004094EC /* Build configuration list for PBXNativeTarget "JotTests" */ = {
 			isa = XCConfigurationList;
@@ -412,6 +404,7 @@
 				AF4250C5199AF9DD004094EC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
