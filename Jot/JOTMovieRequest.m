@@ -2,8 +2,8 @@
 
 @implementation JOTMovieRequest
 
-static NSString * const JOTErrorDomain = @"JOTErrorDomain";
-static NSString * const IMDBSuggestURLFormat = @"http://sg.media-imdb.com/suggests/%@/%@.json";
+static NSString * const kJOTErrorDomain = @"JOTErrorDomain";
+static NSString * const kIMDBSuggestURLFormat = @"http://sg.media-imdb.com/suggests/%@/%@.json";
 
 - (void)requestMovieSuggestionsForText:(NSString *)text
                         withCompletion:(void (^)(NSArray *results, NSError *error))completion {
@@ -14,7 +14,7 @@ static NSString * const IMDBSuggestURLFormat = @"http://sg.media-imdb.com/sugges
   // Query parameters must be lowercase.
   text = [[text lowercaseString] stringByReplacingOccurrencesOfString:@" " withString:@"_"];
   NSString *URLString =
-      [NSString stringWithFormat:IMDBSuggestURLFormat, [text substringToIndex:1], text];
+      [NSString stringWithFormat:kIMDBSuggestURLFormat, [text substringToIndex:1], text];
   NSURL *URL = [NSURL URLWithString:URLString];
   NSURLRequest *request = [NSURLRequest requestWithURL:URL];
   NSURLSession *session = [NSURLSession sharedSession];
@@ -93,7 +93,7 @@ static NSString * const IMDBSuggestURLFormat = @"http://sg.media-imdb.com/sugges
 }
 
 + (NSError *)genericError {
-  return [NSError errorWithDomain:JOTErrorDomain
+  return [NSError errorWithDomain:kJOTErrorDomain
                              code:0
                          userInfo:nil];
 }
