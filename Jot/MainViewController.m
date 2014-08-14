@@ -41,6 +41,8 @@ static NSString * const kJOTResultCellReuseId = @"JOTResultCellReuseId";
       [[UICollectionView alloc] initWithFrame:collectionViewFrame collectionViewLayout:flowLayout];
   self.collectionView.delegate = self;
   self.collectionView.dataSource = self;
+  [self.collectionView registerClass:[UICollectionViewCell class]
+          forCellWithReuseIdentifier:kJOTResultCellReuseId];
   [self.view addSubview:self.collectionView];
 }
 
@@ -74,6 +76,7 @@ static NSString * const kJOTResultCellReuseId = @"JOTResultCellReuseId";
 
       dispatch_async(dispatch_get_main_queue(), ^{
           self.searchResults = results;
+          [self.collectionView reloadData];
       });
   }];
 }
@@ -90,7 +93,8 @@ static NSString * const kJOTResultCellReuseId = @"JOTResultCellReuseId";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv
                   cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-  UICollectionViewCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"FlickrCell" forIndexPath:indexPath];
+  UICollectionViewCell *cell = [cv dequeueReusableCellWithReuseIdentifier:kJOTResultCellReuseId
+                                                             forIndexPath:indexPath];
   cell.backgroundColor = [UIColor whiteColor];
   return cell;
 }
@@ -110,7 +114,7 @@ static NSString * const kJOTResultCellReuseId = @"JOTResultCellReuseId";
 - (CGSize)collectionView:(UICollectionView *)collectionView
                   layout:(UICollectionViewLayout*)collectionViewLayout
     sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-  return CGSizeZero;
+  return CGSizeMake(100, 100);
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView
