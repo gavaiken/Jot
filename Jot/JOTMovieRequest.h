@@ -2,7 +2,7 @@
 #import <UIKit/UIKit.h>
 
 @protocol JOTMovieRequestDelegate
-- (void)retrievedImage:(UIImage *)image forResultAtIndex:(int)index;
+- (void)retrievedImage:(UIImage *)image forResult:(NSString *)result;
 @end
 
 @interface JOTMovieRequest : NSObject

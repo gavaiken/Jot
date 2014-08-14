@@ -9,8 +9,9 @@
 @property (nonatomic, strong) UITextField *textField;
 @property (nonatomic, strong) UICollectionView *collectionView;
 // State
+@property (nonatomic, strong) JOTMovieRequest *movieRequest;
 @property (nonatomic, strong) NSArray *searchResults;
-@property (nonatomic, strong) NSMutableArray *searchResultImages;
+@property (nonatomic, strong) NSMutableDictionary *searchResultImageDict;
 @end
 
 @implementation MainViewController
@@ -65,22 +66,22 @@ static NSString * const kJOTResultCellReuseId = @"JOTResultCellReuseId";
 #pragma mark - Button
 
 - (void)updateSuggestions {
-  JOTMovieRequest *movieRequest = [[JOTMovieRequest alloc] init];
-  movieRequest.delegate = self;
+  _movieRequest = [[JOTMovieRequest alloc] init];
+  _movieRequest.delegate = self;
   NSString *searchText = self.textField.text;
   if (searchText.length == 0) {
     return;
   }
 
-  [movieRequest requestMovieSuggestionsForText:searchText
-                                withCompletion:^(NSArray *results, NSError *error) {
+  [_movieRequest requestMovieSuggestionsForText:searchText
+                                 withCompletion:^(NSArray *results, NSError *error) {
       if (error) {
         NSLog(@"Failed to obtain results for '%@' - Error: %@", searchText, error);
       }
 
       dispatch_async(dispatch_get_main_queue(), ^{
           self.searchResults = results;
-          self.searchResultImages = [NSMutableArray arrayWithCapacity:self.searchResults.count];
+          self.searchResultImageDict = [NSMutableDictionary dictionary];
           [self.collectionView reloadData];
       });
   }];
@@ -100,8 +101,10 @@ static NSString * const kJOTResultCellReuseId = @"JOTResultCellReuseId";
                   cellForItemAtIndexPath:(NSIndexPath *)indexPath {
   JOTResultCell *cell = [cv dequeueReusableCellWithReuseIdentifier:kJOTResultCellReuseId
                                                       forIndexPath:indexPath];
-  cell.labelView.text = self.searchResults[indexPath.row];
-  NSLog(@"%d - '%@'", indexPath.row, cell.labelView.text);
+  NSString *result = self.searchResults[indexPath.row];
+  cell.labelView.text = result;
+  UIImage *image = self.searchResultImageDict[result];
+  cell.imageView.image = image;
   return cell;
 }
 
@@ -132,10 +135,10 @@ static NSString * const kJOTResultCellReuseId = @"JOTResultCellReuseId";
 
 #pragma mark - JOTMovieRequestDelegate
 
-- (void)retrievedImage:(UIImage *)image forResultAtIndex:(int)index {
-  self.searchResultImages[index] = image;
+- (void)retrievedImage:(UIImage *)image forResult:(NSString *)result {
+  self.searchResultImageDict[result] = image;
   dispatch_async(dispatch_get_main_queue(), ^{
-    [self.collectionView reloadData];
+      [self.collectionView reloadData];
   });
 }
 

@@ -85,8 +85,19 @@ static NSString * const kIMDBSuggestURLFormat = @"http://sg.media-imdb.com/sugge
   }
 
   NSArray *resultsArray = resultsDict[@"d"];
-  for (NSDictionary *resultDict in resultsArray) {
-    [results addObject:resultDict[@"l"]];
+  for (int i = 0; i < resultsArray.count; i++) {
+    NSDictionary *resultDict = resultsArray[i];
+    NSString *result = resultDict[@"l"];
+    [results addObject:result];
+    NSURL * imageURL = [NSURL URLWithString:resultDict[@"i"][0]];
+    __weak __typeof__(self) weakSelf = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+      NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
+      UIImage *image = [UIImage imageWithData:imageData];
+      if (result && image) {
+        [weakSelf.delegate retrievedImage:image forResult:result];
+      }
+    });
   }
 
   return results;
