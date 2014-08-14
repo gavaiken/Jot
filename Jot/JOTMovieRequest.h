@@ -6,6 +6,7 @@
 @end
 
 @interface JOTMovieRequest : NSObject
+@property (nonatomic, weak) id<JOTMovieRequestDelegate> delegate;
 - (void)requestMovieSuggestionsForText:(NSString *)text
                         withCompletion:(void (^)(NSArray *results, NSError *error))completion;
 @end

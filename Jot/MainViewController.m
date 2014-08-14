@@ -4,12 +4,13 @@
 #import "JOTResultCell.h"
 
 @interface MainViewController()<UITextFieldDelegate,
-    UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+    UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, JOTMovieRequestDelegate>
 // Views
 @property (nonatomic, strong) UITextField *textField;
 @property (nonatomic, strong) UICollectionView *collectionView;
 // State
 @property (nonatomic, strong) NSArray *searchResults;
+@property (nonatomic, strong) NSMutableArray *searchResultImages;
 @end
 
 @implementation MainViewController
@@ -65,6 +66,7 @@ static NSString * const kJOTResultCellReuseId = @"JOTResultCellReuseId";
 
 - (void)updateSuggestions {
   JOTMovieRequest *movieRequest = [[JOTMovieRequest alloc] init];
+  movieRequest.delegate = self;
   NSString *searchText = self.textField.text;
   if (searchText.length == 0) {
     return;
@@ -78,6 +80,7 @@ static NSString * const kJOTResultCellReuseId = @"JOTResultCellReuseId";
 
       dispatch_async(dispatch_get_main_queue(), ^{
           self.searchResults = results;
+          self.searchResultImages = [NSMutableArray arrayWithCapacity:self.searchResults.count];
           [self.collectionView reloadData];
       });
   }];
@@ -125,6 +128,15 @@ static NSString * const kJOTResultCellReuseId = @"JOTResultCellReuseId";
                         layout:(UICollectionViewLayout*)collectionViewLayout
         insetForSectionAtIndex:(NSInteger)section {
   return UIEdgeInsetsZero;
+}
+
+#pragma mark - JOTMovieRequestDelegate
+
+- (void)retrievedImage:(UIImage *)image forResultAtIndex:(int)index {
+  self.searchResultImages[index] = image;
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [self.collectionView reloadData];
+  });
 }
 
 @end
