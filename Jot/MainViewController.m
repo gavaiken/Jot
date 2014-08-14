@@ -1,6 +1,7 @@
 #import "MainViewController.h"
 
 #import "JOTMovieRequest.h"
+#import "JOTResultCell.h"
 
 @interface MainViewController()<UITextFieldDelegate,
     UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
@@ -41,8 +42,9 @@ static NSString * const kJOTResultCellReuseId = @"JOTResultCellReuseId";
       [[UICollectionView alloc] initWithFrame:collectionViewFrame collectionViewLayout:flowLayout];
   self.collectionView.delegate = self;
   self.collectionView.dataSource = self;
-  [self.collectionView registerClass:[UICollectionViewCell class]
+  [self.collectionView registerClass:[JOTResultCell class]
           forCellWithReuseIdentifier:kJOTResultCellReuseId];
+  self.collectionView.backgroundColor = [UIColor grayColor];
   [self.view addSubview:self.collectionView];
 }
 
@@ -93,9 +95,10 @@ static NSString * const kJOTResultCellReuseId = @"JOTResultCellReuseId";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv
                   cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-  UICollectionViewCell *cell = [cv dequeueReusableCellWithReuseIdentifier:kJOTResultCellReuseId
-                                                             forIndexPath:indexPath];
-  cell.backgroundColor = [UIColor whiteColor];
+  JOTResultCell *cell = [cv dequeueReusableCellWithReuseIdentifier:kJOTResultCellReuseId
+                                                      forIndexPath:indexPath];
+  cell.labelView.text = self.searchResults[indexPath.row];
+  NSLog(@"%d - '%@'", indexPath.row, cell.labelView.text);
   return cell;
 }
 
@@ -103,6 +106,7 @@ static NSString * const kJOTResultCellReuseId = @"JOTResultCellReuseId";
 
 - (void)collectionView:(UICollectionView *)collectionView
     didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+  NSLog(@"Selected: %d", indexPath.row);
 }
 
 - (void)collectionView:(UICollectionView *)collectionView
@@ -114,7 +118,7 @@ static NSString * const kJOTResultCellReuseId = @"JOTResultCellReuseId";
 - (CGSize)collectionView:(UICollectionView *)collectionView
                   layout:(UICollectionViewLayout*)collectionViewLayout
     sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-  return CGSizeMake(100, 100);
+  return CGSizeMake(self.collectionView.bounds.size.width, 20);
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView

@@ -13,6 +13,7 @@
 		AF4250BD199AF9DD004094EC /* JotTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AF4250BC199AF9DD004094EC /* JotTests.m */; };
 		AFD6C33A199B06C8002685F6 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AFD6C339199B06C8002685F6 /* MainViewController.m */; };
 		AFD6C33D199B0A57002685F6 /* JOTMovieRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = AFD6C33C199B0A57002685F6 /* JOTMovieRequest.m */; };
+		AFD6C340199C5A2F002685F6 /* JOTResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AFD6C33F199C5A2F002685F6 /* JOTResultCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +40,8 @@
 		AFD6C339199B06C8002685F6 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		AFD6C33B199B0A57002685F6 /* JOTMovieRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JOTMovieRequest.h; sourceTree = "<group>"; };
 		AFD6C33C199B0A57002685F6 /* JOTMovieRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JOTMovieRequest.m; sourceTree = "<group>"; };
+		AFD6C33E199C5A2F002685F6 /* JOTResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JOTResultCell.h; sourceTree = "<group>"; };
+		AFD6C33F199C5A2F002685F6 /* JOTResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JOTResultCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +91,8 @@
 				AFD6C339199B06C8002685F6 /* MainViewController.m */,
 				AFD6C33B199B0A57002685F6 /* JOTMovieRequest.h */,
 				AFD6C33C199B0A57002685F6 /* JOTMovieRequest.m */,
+				AFD6C33E199C5A2F002685F6 /* JOTResultCell.h */,
+				AFD6C33F199C5A2F002685F6 /* JOTResultCell.m */,
 			);
 			path = Jot;
 			sourceTree = "<group>";
@@ -220,6 +225,7 @@
 				AFD6C33A199B06C8002685F6 /* MainViewController.m in Sources */,
 				AFD6C33D199B0A57002685F6 /* JOTMovieRequest.m in Sources */,
 				AF4250A6199AF9DD004094EC /* main.m in Sources */,
+				AFD6C340199C5A2F002685F6 /* JOTResultCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
