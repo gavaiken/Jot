@@ -2,9 +2,13 @@
 
 #import "JOTMovieRequest.h"
 
-@interface MainViewController()<UITextFieldDelegate>
+@interface MainViewController()<UITextFieldDelegate,
+    UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+// Views
 @property (nonatomic, strong) UITextField *textField;
-@property (nonatomic, strong) UITextView *textView;
+@property (nonatomic, strong) UICollectionView *collectionView;
+// State
+@property (nonatomic, strong) NSArray *searchResults;
 @end
 
 @implementation MainViewController
@@ -23,18 +27,19 @@
            forControlEvents:UIControlEventEditingChanged];
   [self.view addSubview:self.textField];
 
-  // Add text view
-  self.textView = [[UITextView alloc] init];
+  // Add collection view
   CGFloat yOffset = CGRectGetMaxY(self.textField.frame);
   CGFloat padding = 10.0f;
-  self.textView.frame = CGRectMake(padding,
-                              yOffset + padding,
-                              CGRectGetMaxX(self.view.frame) - (padding * 2),
-                              CGRectGetMaxY(self.view.frame) - yOffset - (padding * 2));
-  self.textView.layer.borderWidth = 1.0f;
-  self.textView.layer.borderColor = [[UIColor grayColor] CGColor];
-  self.textView.userInteractionEnabled = NO;
-  [self.view addSubview:self.textView];
+  CGRect collectionViewFrame = CGRectMake(padding,
+                                          yOffset + padding,
+                                          CGRectGetMaxX(self.view.frame) - (padding * 2),
+                                          CGRectGetMaxY(self.view.frame) - yOffset - (padding * 2));
+  UICollectionViewLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+  self.collectionView =
+      [[UICollectionView alloc] initWithFrame:collectionViewFrame collectionViewLayout:flowLayout];
+  self.collectionView.delegate = self;
+  self.collectionView.dataSource = self;
+  [self.view addSubview:self.collectionView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -65,11 +70,51 @@
         NSLog(@"Failed to obtain results for '%@' - Error: %@", searchText, error);
       }
 
-      NSString *resultString = [results componentsJoinedByString:@"\n"];
       dispatch_async(dispatch_get_main_queue(), ^{
-          self.textView.text = resultString;
+          self.searchResults = results;
       });
   }];
+}
+
+#pragma mark - UICollectionViewDataSource
+
+- (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
+  return [self.searchResults count];
+}
+
+- (NSInteger)numberOfSectionsInCollectionView: (UICollectionView *)collectionView {
+  return 1;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)cv
+                  cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+  UICollectionViewCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"FlickrCell " forIndexPath:indexPath];
+  cell.backgroundColor = [UIColor whiteColor];
+  return cell;
+}
+
+#pragma mark - UICollectionViewDelegate
+
+- (void)collectionView:(UICollectionView *)collectionView
+    didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+}
+
+- (void)collectionView:(UICollectionView *)collectionView
+    didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
+}
+
+#pragma mark UICollectionViewDelegateFlowLayout
+
+- (CGSize)collectionView:(UICollectionView *)collectionView
+                  layout:(UICollectionViewLayout*)collectionViewLayout
+    sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+  return CGSizeZero;
+}
+
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView
+                        layout:(UICollectionViewLayout*)collectionViewLayout
+        insetForSectionAtIndex:(NSInteger)section {
+  return UIEdgeInsetsZero;
 }
 
 @end
