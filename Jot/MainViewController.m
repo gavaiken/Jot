@@ -44,7 +44,7 @@ static NSString * const kJOTResultCellReuseId = @"JOTResultCellReuseId";
   self.collectionView.dataSource = self;
   [self.collectionView registerClass:[JOTResultCell class]
           forCellWithReuseIdentifier:kJOTResultCellReuseId];
-  self.collectionView.backgroundColor = [UIColor grayColor];
+  self.collectionView.backgroundColor = [UIColor whiteColor];
   [self.view addSubview:self.collectionView];
 }
 

@@ -8,7 +8,7 @@
   self = [super initWithFrame:frame];
   if (self) {
     self.backgroundColor = [UIColor whiteColor];
-    _labelView = [[UILabel alloc] initWithFrame:frame];
+    _labelView = [[UILabel alloc] initWithFrame:self.bounds];
     [self addSubview:_labelView];
   }
   return self;
