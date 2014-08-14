@@ -118,7 +118,7 @@ static NSString * const kJOTResultCellReuseId = @"JOTResultCellReuseId";
 - (CGSize)collectionView:(UICollectionView *)collectionView
                   layout:(UICollectionViewLayout*)collectionViewLayout
     sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-  return CGSizeMake(self.collectionView.bounds.size.width, 20);
+  return CGSizeMake(self.collectionView.bounds.size.width, 60);
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView
