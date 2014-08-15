@@ -136,12 +136,12 @@ static NSString * const kJOTResultCellReuseId = @"JOTResultCellReuseId";
 
 #pragma mark - JOTMovieRequestDelegate
 
-- (void)retrievedImage:(UIImage *)image forResult:(NSString *)result {
+- (void)retrievedImage:(UIImage *)image forResultAtIndex:(int)index {
+  NSString *result = self.searchResults[index];
   self.searchResultImageDict[result] = image;
-  NSLog(@"%@ image retrieved", result);
+  NSIndexPath *indexPath = [NSIndexPath indexPathForItem:index inSection:0];
   dispatch_async(dispatch_get_main_queue(), ^{
-      NSLog(@"%@ image reloaded", result);
-      [self.collectionView reloadData];
+    [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
   });
 }
 

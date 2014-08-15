@@ -101,7 +101,7 @@ static NSString * const kIMDBSuggestURLFormat = @"http://sg.media-imdb.com/sugge
       UIImage *image = [UIImage imageWithData:imageData];
       NSLog(@"Received image for movie: '%@', Size:%@", result, NSStringFromCGSize(image.size));
       if (result && image) {
-        [weakSelf.delegate retrievedImage:image forResult:result];
+        [weakSelf.delegate retrievedImage:image forResultAtIndex:i];
       }
     });
   }
