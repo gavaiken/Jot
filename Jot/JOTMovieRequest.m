@@ -89,16 +89,15 @@ static NSString * const kIMDBSuggestURLFormat = @"http://sg.media-imdb.com/sugge
     NSDictionary *resultDict = resultsArray[i];
     NSString *result = resultDict[@"l"];
     [results addObject:result];
-    NSString *imageURLString = resultDict[@"i"][0];
-    if (!imageURLString) {
+    NSString *posterURLString = resultDict[@"i"][0];
+    if (!posterURLString) {
       continue;
     }
-    imageURLString = [self adaptURLString:imageURLString];
-    NSURL *imageURL = [NSURL URLWithString:imageURLString];
+    NSString *thumbURLString = [self getThumbnailURL:posterURLString];
+    NSURL *thumbURL = [NSURL URLWithString:thumbURLString];
     __weak __typeof__(self) weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-      NSLog(@"Requesting image for movie: '%@', URL: %@", result, imageURL);
-      NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
+      NSData *imageData = [NSData dataWithContentsOfURL:thumbURL];
       UIImage *image = [UIImage imageWithData:imageData];
       NSLog(@"Received image for movie: '%@', Size:%@", result, NSStringFromCGSize(image.size));
       if (result && image) {
@@ -110,8 +109,11 @@ static NSString * const kIMDBSuggestURLFormat = @"http://sg.media-imdb.com/sugge
   return results;
 }
 
-- (NSString *)adaptURLString:(NSString *)url {
-  NSString *baseString = [url componentsSeparatedByString:@"._V"][0];
+- (NSString *)getThumbnailURL:(NSString *)posterURLString {
+  NSString *baseString = [posterURLString componentsSeparatedByString:@"._V"][0];
+  // HACK: Based on inspecting the IMDB requests when you go on the website. I am eternally grateful
+  // for IMDB's API so I'm trying to grab as little as I need for the thumb.
+  // TODO: The dimensions requested rely on being used in a max 40px view (80 real px on retina).
   return [baseString stringByAppendingString:@"._V1._SX80_CR0,0,80,120_.jpg"];
 }
 

@@ -77,6 +77,7 @@ static NSString * const kJOTResultCellReuseId = @"JOTResultCellReuseId";
                                  withCompletion:^(NSArray *results, NSError *error) {
       if (error) {
         NSLog(@"Failed to obtain results for '%@' - Error: %@", searchText, error);
+        return;
       }
 
       dispatch_async(dispatch_get_main_queue(), ^{
