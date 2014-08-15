@@ -112,7 +112,7 @@ static NSString * const kJOTResultCellReuseId = @"JOTResultCellReuseId";
 
 - (void)collectionView:(UICollectionView *)collectionView
     didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-  NSLog(@"Selected: %d", indexPath.row);
+  NSLog(@"Selected: %ld", (long)indexPath.row);
 }
 
 - (void)collectionView:(UICollectionView *)collectionView
@@ -137,7 +137,9 @@ static NSString * const kJOTResultCellReuseId = @"JOTResultCellReuseId";
 
 - (void)retrievedImage:(UIImage *)image forResult:(NSString *)result {
   self.searchResultImageDict[result] = image;
+  NSLog(@"%@ image retrieved", result);
   dispatch_async(dispatch_get_main_queue(), ^{
+      NSLog(@"%@ image reloaded", result);
       [self.collectionView reloadData];
   });
 }

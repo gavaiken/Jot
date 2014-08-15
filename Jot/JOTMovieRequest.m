@@ -89,11 +89,18 @@ static NSString * const kIMDBSuggestURLFormat = @"http://sg.media-imdb.com/sugge
     NSDictionary *resultDict = resultsArray[i];
     NSString *result = resultDict[@"l"];
     [results addObject:result];
-    NSURL * imageURL = [NSURL URLWithString:resultDict[@"i"][0]];
+    NSString *imageURLString = resultDict[@"i"][0];
+    if (!imageURLString) {
+      continue;
+    }
+    imageURLString = [self adaptURLString:imageURLString];
+    NSURL *imageURL = [NSURL URLWithString:imageURLString];
     __weak __typeof__(self) weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+      NSLog(@"Requesting image for movie: '%@', URL: %@", result, imageURL);
       NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
       UIImage *image = [UIImage imageWithData:imageData];
+      NSLog(@"Received image for movie: '%@', Size:%@", result, NSStringFromCGSize(image.size));
       if (result && image) {
         [weakSelf.delegate retrievedImage:image forResult:result];
       }
@@ -101,6 +108,11 @@ static NSString * const kIMDBSuggestURLFormat = @"http://sg.media-imdb.com/sugge
   }
 
   return results;
+}
+
+- (NSString *)adaptURLString:(NSString *)url {
+  NSString *baseString = [url componentsSeparatedByString:@"._V"][0];
+  return [baseString stringByAppendingString:@"._V1._SX80_CR0,0,80,120_.jpg"];
 }
 
 + (NSError *)genericError {
